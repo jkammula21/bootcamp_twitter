@@ -1,6 +1,7 @@
 // Tweet.js
 import React, { useState } from 'react';
 
+
 /* 
 Create a new componnet called 'Tweet' make sure to pass down all the props you will need.
 You will also need to use 'useState' for two variables. Then you want to create an event
@@ -12,5 +13,35 @@ Theres a 'tweet' class you can use to style your tweet.
 */
 
 
+type Tweet = {username:string, content:string, timestamp:string, initialLikes:number}
+  
+  export default function Tweet({username, content, timestamp, initialLikes}: Tweet) {
 
-// export default Tweet;
+    const [liked, setLiked] = useState(false)
+    const [likes, setLikes] = useState(initialLikes)
+
+    function handleClick() {
+      if (liked) {
+        setLiked(false)
+        setLikes(likes - 1)
+      }
+      else {
+        setLiked(true)
+        setLikes(likes + 1)
+      }
+    }
+    return (
+      <>
+      <div className = "tweet">
+
+        <p><b>@{username}</b></p>
+        <p>{content}</p>
+        <p>{timestamp} ago</p>
+        <p onClick={() => handleClick()}>{liked ? '❤️' : '🤍'} {likes} Likes</p>
+
+      </div>
+      </>
+    )
+
+  }
+
